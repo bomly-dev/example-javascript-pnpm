@@ -1,0 +1,31 @@
+name: Bomly Guard
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  security-events: write
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: pnpm
+      - run: corepack enable
+      - name: Guard dependency changes
+        uses: bomly-dev/bomly-guard@v1
+        with:
+          ecosystems: npm
+          fail-on: high
+          comment-summary-in-pr: always

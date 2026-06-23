@@ -29,5 +29,5 @@ jobs:
           cli-token: ${{ github.token }}
           log-level: debug
           ecosystems: npm
-          fail-on: high
+          fail-on: any
           comment-summary-in-pr: always
